@@ -13,7 +13,9 @@ public class Ch6{
         //int n = in.nextInt();
         //System.out.println(convertToBinary(n));
         
-        System.out.println(pigLatin("joe love starcraft"));
+        System.out.print("Input a sentence to translate to pig latin: ");
+        String english = in.nextLine();
+        System.out.println(pigLatin(english));
     }
     
     public static String ppap(String str) {
@@ -67,21 +69,32 @@ public class Ch6{
         return br;
     }
     
-    public static String pigLatin (String msg) {
-        //joe love starcraft  oejay ovelay tarcraftsay
+    public static String oneWord (String word) {
         String pig = "";
-        String startLetter = msg.substring(0, 1);
-        String end = msg.substring(1, msg.indexOf(" "));
+        String startLetter = word.substring(0, 1);
+        String end = word.substring(1);
         String a = "ay";
-        if (msg.substring(0, msg.indexOf(" ")).length() > 2) {
-            pig = pig + end + startLetter + a;
+        if (word.length() > 2) {
+            pig += end + startLetter + a;
         } else {
-            pig = pig + msg.substring(0, msg.indexOf(" "));
+            pig += word;
         }
         
         return pig;
+    }
+    
+    public static String pigLatin (String msg) {
+        String newPig = "";
         
+        while (msg.indexOf(" ") >= 0) {
+            int spaceIndex = msg.indexOf(" ");
+            String word = msg.substring(0, spaceIndex);
+            newPig += oneWord(word) + " ";
+            msg = msg.substring(spaceIndex+1);   //chops the beginning off
+        }
+        newPig += oneWord(msg);
         
+        return newPig;
     }
     
 }
